@@ -7,9 +7,15 @@ This repository contains the notebook and data for the Simple Trend Cash U.S. Tr
 - `notebook/06_simple_trend_cash_comparison.ipynb`
   - Self-contained backtest notebook for Miyazaki-style relative-value signals, Simple Trend Cash, BEI variants, and `MZ_TREND_CASH_ADVANCED_V2`.
 - `notebook/01_data_loading.ipynb`
-  - Initial FRED data-loading notebook for U.S. Treasury yields and spline interpolation.
+  - FRED data-loading notebook for U.S. Treasury yields, spline interpolation, and the long macro/rate workbook `data/us_macro_rates_2004_2026.xlsx`.
+- `notebook/02_miyazaki.ipynb`
+  - Miyazaki-style factor model and baseline strategy implementation.
 - `notebook/03_us_treasury_monthly_strategy_2006_2026.ipynb`
   - Long-history notebook that fetches/generates the 2004-2026 Treasury yield dataset and runs the earlier monthly strategy backtest.
+- `notebook/04_miyazaki_long_comparison.ipynb`
+  - Long-history comparison notebook for Miyazaki-style variants.
+- `notebook/05_defensive_cash_gated_strategy.ipynb`
+  - Earlier defensive cash-gated strategy notebook kept as a reference comparison.
 - `src/performance.py`
   - Small helper functions used by the earlier monthly strategy notebook.
 - `data/us_treasury_yields_2004_2026.xlsx`
@@ -22,6 +28,10 @@ This repository contains the notebook and data for the Simple Trend Cash U.S. Tr
   - Output workbook from the executed notebook.
 - `data/backtest_2006_2026_monthly_results.xlsx`
   - Output workbook from `03_us_treasury_monthly_strategy_2006_2026.ipynb`.
+- `data/backtest_miyazaki_long_comparison.xlsx`
+  - Output workbook from `04_miyazaki_long_comparison.ipynb`.
+- `data/backtest_defensive_cash_gated.xlsx`
+  - Output workbook from `05_defensive_cash_gated_strategy.ipynb`.
 - `report/Simple Trend Cash戦略.pdf`
   - PDF report explaining the strategy, formulas, results, and interpretation.
 
@@ -51,6 +61,14 @@ To rerun the long-history data fetch / earlier strategy notebook:
 
 ```bash
 uv run jupyter nbconvert --to notebook --execute --inplace notebook/03_us_treasury_monthly_strategy_2006_2026.ipynb
+```
+
+To rerun all checked notebooks:
+
+```bash
+for nb in notebook/*.ipynb; do
+  uv run jupyter nbconvert --to notebook --execute --inplace "$nb"
+done
 ```
 
 The FRED API key should be supplied through `.private/.env` as:
